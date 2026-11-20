@@ -5,9 +5,23 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
 
 > **下载**：到 [Releases](https://github.com/holosama212/dsh-rinko-nai/releases) 下载最新 `dsh-rinko-nai-v*.zip`，解压即用（或点 Code → Download ZIP 拿源码）。
 
+## 截图
+
+| | |
+|---|---|
+| ![登录与账户](docs/shot1-login.png) | ![活动·图包·充值](docs/shot2-activity.png) |
+| ![站内画廊](docs/shot3-gallery.png) | ![从图片导入参数](docs/shot4-params.png) |
+
+## 一键安装（把仓库地址丢给你的 AI）
+
+最省事：把下面这句话（连同仓库地址）发给你正在用的 AI，它能读写文件、跑命令，会帮你装好：
+
+> 帮我把这个 DSH 插件装进本机：`https://github.com/holosama212/dsh-rinko-nai`
+> ——解压/放到 `<DSH_HOME>\plugins\dsh-rinko-nai`；在 `<DSH_HOME>\profiles\web\package.json` 的 `dependencies` 加 `"dsh-rinko-nai": "link:../../plugins/dsh-rinko-nai"`、`dsh.profile.bundles` 加 `"dsh-rinko-nai"`；在 `node_modules` 建 Junction 指向插件目录；最后提示我重启 DSH。
+
 ## 它做什么
 
-- **双站支持**：主站 `nai.rinko.ai` 与姊妹站 `ynai.rinko.ai`（同一套接口，账号与 Gems 各自独立）。
+- **双站支持**：公益站 `nai.rinko.ai` 与主站 `ynai.rinko.ai`（同一套接口，账号与 Gems 各自独立）。
   设置页顶部有两个站点标签，点一下切换；每个站点各自保存账号、Key、余额与画廊，互不干扰。
 - **`rinko_nai_image`**：出图（1–4 张/次）或询价（`quote:true`，免费）。走「当前激活站点」。图片存
   `<DSH_HOME>/media/rinko-nai/`，返回绝对路径，直接交给 `present` / `dsh_im_return_file` 发出去。
