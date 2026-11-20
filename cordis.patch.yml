@@ -1,0 +1,8 @@
+# dsh-rinko-nai bundle 补丁层：把自己作为一行插进 profile。
+#
+# name 必须是【裸包名】dsh-rinko-nai，不能写子路径 —— dsh-web 的客户端模块扫描
+# 只解析裸包名行，靠这行找到本包的 package.json、读到 dsh.client 字段，才会把
+# lib/client.js（设置页里的「Rinko NAI」）服务给网页。
+- insert:
+    - id: rinko-nai
+      name: dsh-rinko-nai

@@ -1,0 +1,7 @@
+node_modules/
+config.json
+pay-*.html
+*.zip
+*.log
+.DS_Store
+Thumbs.db
