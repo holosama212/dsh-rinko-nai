@@ -3,5 +3,6 @@ config.json
 pay-*.html
 *.zip
 *.log
+*.bak-*
 .DS_Store
 Thumbs.db
