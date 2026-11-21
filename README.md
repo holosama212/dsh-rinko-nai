@@ -67,12 +67,11 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
 默认 `nai-diffusion-4-5-full` · 832×1216 · 28 步 · CFG 5 · `k_euler_ancestral` · karras，
 全部可在设置页改。「默认附加串」会自动拼在每次 prompt 末尾（放画师串 / 质量串）。
 
-## 可用模型（16 个）
+## 可用模型
 
-`nai-diffusion-5-full` / `-5-curated` / `-4-5-full` / `-4-5-curated` / `-4-full` / `-4-curated` /
-`-3` / `-3-furry` / `-3-inpainting` / `-4-5-full-inpainting` / `-4-5-curated-inpainting` /
-`-4-full-inpainting` / `-4-curated-inpainting` / `-5-full-inpainting` / `-5-curated-inpainting`
-（inpainting 系列暂未接入底图流程，预留）
+文生图下拉列出网站提供的文生图模型（已去掉需要底图的 inpainting）：
+`nai-diffusion-5-full` / `-5-curated` / `-4-5-full` / `-4-5-curated` / `-4-full` / `-4-curated` / `-3` / `-3-furry`。
+（自定义站则手填服务商模型 ID，如 `gpt-image-1`。）
 
 ## 计费
 
@@ -80,6 +79,22 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
 出图前可传 `quote:true` 询价。错误码对照：`INVALID_API_TOKEN`（Key 失效）、
 `MODEL_NOT_ALLOWED`（Key 模型白名单）、`API_TOKEN_DAILY_GEMS_LIMIT_EXCEEDED`（Key 日限）、
 `TOKEN_FREE_ONLY`（Key 只许免费）、`INSUFFICIENT_GEMS`（余额不足）。
+
+## 支持其它站点（自定义站 / 适配器）
+
+设置页顶部站点标签里多了 **「自定义站」**：可填任意站点的 **Base URL + 协议 + Key**，出图按协议走不同适配器：
+
+- **YesNAI 兼容**（`POST /v1/nai/generate-image`）：换 Base URL 即接同样后端的站点。
+- **OpenAI 兼容**（`POST /v1/images/generations`，`Authorization: Bearer <key>`，`response_format=b64_json`）：覆盖大量官方/中转站。
+- 每种站点都能配 **多 Key 并行**（「多 Key」+「一键建 Key」只对 YesNAI 站有效；自定义站把 Key 填进「多 Key」即可）。
+- 自定义站可勾选 **「单 Key 多并行」**：同一把 Key 也并发多张（有的站不按 Key 排队，单 Key 就能并行提速）。
+
+配置文件里对应结构（`config.json` 的 `sites.custom`）：
+```json
+"sites": { "custom": { "label": "我的站", "baseUrl": "https://example.com", "apiType": "openai", "apiKey": "sk-xxx", "apiKeys": ["sk-yyy"] } }
+```
+
+> 说明：ComfyUI / SD WebUI 这类"工作流式"接口协议差异很大，暂未内置；需要的话可再扩适配器。
 
 ## 安装
 
