@@ -1,6 +1,6 @@
 {
   "name": "dsh-rinko-nai",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "type": "module",
   "description": "YesNAI（nai.rinko.ai）出图插件：原生 rinko_nai_image 工具 + 设置页（凭据 / 默认参数 / 测试出图）",
