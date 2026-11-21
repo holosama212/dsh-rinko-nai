@@ -25,6 +25,7 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
   设置页顶部有两个站点标签，点一下切换；每个站点各自保存账号、Key、余额与画廊，互不干扰。
 - **`rinko_nai_image`**：出图（1–4 张/次）或询价（`quote:true`，**0 Gems，但仍需有效 Key**）。走「当前激活站点」。图片存
   `<DSH_HOME>/media/rinko-nai/`，返回绝对路径，直接交给 `present` / `dsh_im_return_file` 发出去。
+- **`rinko_nai_parallel`**：**多 Key 并行出图**。传 `prompts: [...]`（每项一张，最多 10），每一条用一把独立 Key **同时**跑，一次返回多张；可传 `keys: [...]` 临时指定 Key，不传则用设置里的多 Key 池。返回 `concurrency` = 实际并发路数（`>=1.0.6`）。
 - **`rinko_nai_status`**：通道体检 —— 模型列表、Key 有效性、Gems 余额、图包张数、
   自动 Key 的今日用量、最近一次生成记录。出图报错先跑它。
 - **设置页「Rinko NAI」**：
