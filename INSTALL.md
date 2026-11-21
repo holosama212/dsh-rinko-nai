@@ -44,6 +44,12 @@ New-Item -ItemType Junction `
 
 然后**重启 DSH**。
 
+> **Linux / Android(Termux) 等**：不用手动 Junction，一条命令即可（DSH 会自己链好）：
+> ```bash
+> dsh plugin --profile web add /path/to/dsh-rinko-nai
+> ```
+> 然后重启 DSH。
+
 ## 用起来
 
 1. 设置 → **Rinko NAI** → 输入 YesNAI 账号密码 → 「登录并自动建 Key」

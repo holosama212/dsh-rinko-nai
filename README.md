@@ -23,7 +23,7 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
 
 - **双站支持**：公益站 `nai.rinko.ai` 与主站 `ynai.rinko.ai`（同一套接口，账号与 Gems 各自独立）。
   设置页顶部有两个站点标签，点一下切换；每个站点各自保存账号、Key、余额与画廊，互不干扰。
-- **`rinko_nai_image`**：出图（1–4 张/次）或询价（`quote:true`，免费）。走「当前激活站点」。图片存
+- **`rinko_nai_image`**：出图（1–4 张/次）或询价（`quote:true`，**0 Gems，但仍需有效 Key**）。走「当前激活站点」。图片存
   `<DSH_HOME>/media/rinko-nai/`，返回绝对路径，直接交给 `present` / `dsh_im_return_file` 发出去。
 - **`rinko_nai_status`**：通道体检 —— 模型列表、Key 有效性、Gems 余额、图包张数、
   自动 Key 的今日用量、最近一次生成记录。出图报错先跑它。
@@ -72,7 +72,7 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
 
 ## 计费
 
-免费档位（如 4-5-full 832×1216 ≤ 28 步）报价 **0 Gems**；超出免费档按 Gems 计费，
+免费档位（如 4-5-full 832×1216 ≤ 28 步）报价 **0 Gems（但仍需有效 Key，无 Key 会 401）**；超出免费档按 Gems 计费，
 出图前可传 `quote:true` 询价。错误码对照：`INVALID_API_TOKEN`（Key 失效）、
 `MODEL_NOT_ALLOWED`（Key 模型白名单）、`API_TOKEN_DAILY_GEMS_LIMIT_EXCEEDED`（Key 日限）、
 `TOKEN_FREE_ONLY`（Key 只许免费）、`INSUFFICIENT_GEMS`（余额不足）。
@@ -86,7 +86,7 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
 3. `node_modules/dsh-rinko-nai` 建 Junction 指向插件目录（或跑一次 pnpm install）。
 4. 重启 DSH。
 
-## 0.3.1 修了什么（出图一直 500 / 502）
+## 更新日志（历史）
 
 1. **`params_version: 3` 删掉了** —— 网站出图端点收到这个字段会直接崩，回 Cloudflare 502
    （请求体 `error code: 502`，17s 左右后才回，失败自动退款）。这是「一直 500」的主因；
@@ -99,6 +99,8 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
 ## 排障
 
 - 先跑 `rinko_nai_status`：`modelsOk` 看连通、`keyValid` 看凭据、`account` 看账户。
+- **报错 `SyntaxError: Unexpected token '﻿'` / 插件被跳过、加载不了**：`package.json` 开头混进了 **UTF-8 BOM**（旧包问题，≥1.0.1 已修）。手动救：把文件另存为「UTF-8 无 BOM」；或运行
+  `node -e "const fs=require('fs'),f='package.json',b=fs.readFileSync(f);if(b[0]===0xEF&&b[1]===0xBB&&b[2]===0xBF)fs.writeFileSync(f,b.subarray(3))"`。
 - **网络慢/连不上 → 建议开代理**：插件走系统网络（不读插件内代理设置）。若出图或查账户经常「连接超时 / 连不上站点」，多半是到 `*.rinko.ai` 的直连不稳，**开启代理（如 Clash，建议“全局”或“TUN”模式）后再试**即可。插件每次请求分两段计时：**连接 20 秒**连不上就快速报错（不会干吊几百秒），连上后最多等 **180 秒**出图。
 - HTTP 502/504：网站上游抖了，稍后再试（设置页「测试连接」会如实报告）。
   实测 2026-11-20 晚：直连与 Clash 代理（127.0.0.1:7897）**同样 502**，且失败请求会自动退款
