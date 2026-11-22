@@ -1,6 +1,6 @@
 {
   "name": "dsh-rinko-nai",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "type": "module",
   "description": "YesNAI（nai.rinko.ai）出图插件：原生 rinko_nai_image 工具 + 设置页（凭据 / 默认参数 / 测试出图）",
@@ -23,7 +23,8 @@
     "lib",
     "cordis.patch.yml",
     "README.md",
-    "assets"
+    "assets",
+    "docs"
   ],
   "dsh": {
     "bundle": {
@@ -51,5 +52,13 @@
   "scripts": {
     "check": "node --check lib/index.js && node --check lib/client.js",
     "smoke": "node scripts/smoke.mjs"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   }
 }
