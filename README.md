@@ -27,6 +27,7 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
   `<DSH_HOME>/media/rinko-nai/`，返回绝对路径，直接交给 `present` / `dsh_im_return_file` 发出去。
 - **`rinko_nai_parallel`**：**多 Key 并行出图**。传 `prompts: [...]`（每项一张，最多 10），每一条用一把独立 Key **同时**跑，一次返回多张；可传 `keys: [...]` 临时指定 Key，不传则用设置里的多 Key 池。返回 `concurrency` = 实际并发路数（`>=1.0.6`）。
 - **`rinko_nai_img2img`**：**图生图 / 参考图改图**。传 `image`（本地路径或 data URI）+ `prompt` + `strength(0–1)`，改画风/换装/保角色一致。YesNAI 站照常按出图计费（免费额度内 0 Gems），OpenAI 兼容站走 `/images/edits`。**需先在设置里按站点勾选「启用图生图」**（很多站点暂无编辑端点，等站点支持后再开；`>=1.1.2`）。
+- **`rinko_nai_batch`**：**网站「批次任务」**（`/api/ynai/batches`）。`action` 支持 `policy`（看是否开放/限额/折扣）/`validate`/`submit`（传 `prompts:[...]` 批量提交，离线排队、非高峰跑、可能更便宜）/`list`/`cancel`/`resume`/`output`（下载产物 zip）。需账号登录态；**两个站现在都 `enabled=false`（未开放）**，等站点开启即可用（`>=1.2.0`）。
 - 出图结果附 **同源可内联渲染** 的 Markdown 链接（`http://<本机>/api/rinko-nai/file?path=...`），对话里直接显示，比纯本地路径稳（`>=1.1.1`）。
 - **`rinko_nai_status`**：通道体检 —— 模型列表、Key 有效性、Gems 余额、图包张数、
   自动 Key 的今日用量、最近一次生成记录。出图报错先跑它。
