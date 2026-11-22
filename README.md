@@ -69,7 +69,7 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
 ## 默认参数
 
 默认 `nai-diffusion-4-5-full` · 832×1216 · 28 步 · CFG 5 · `k_euler_ancestral` · karras，
-全部可在设置页改。「默认附加串」会自动拼在每次 prompt 末尾（放画师串 / 质量串）。
+全部可在设置页改。「默认附加串」会自动拼在每次 prompt 最前面（放画师串 / 质量串）。
 
 ## 可用模型
 
