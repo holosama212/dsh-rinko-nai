@@ -37,6 +37,7 @@ mod.apply(A.ctx)
 check('A 工具 rinko_nai_image', A.tools.includes('rinko_nai_image'))
 check('A 工具 rinko_nai_status', A.tools.includes('rinko_nai_status'))
 check('A 工具 rinko_nai_parallel', A.tools.includes('rinko_nai_parallel'))
+check('A 工具 rinko_nai_img2img', A.tools.includes('rinko_nai_img2img'))
 check('A 同源路由 /api/rinko-nai', A.routes.some((r) => r.includes('/api/rinko-nai')))
 check('A 系统提示 inline-display', A.getSp() === 'rinko-nai:inline-display')
 
