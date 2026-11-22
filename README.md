@@ -124,7 +124,7 @@ DSH 插件：在 DSH 里直接用 **YesNAI（公益站 nai.rinko.ai / 主站 yna
 - 先跑 `rinko_nai_status`：`modelsOk` 看连通、`keyValid` 看凭据、`account` 看账户。
 - **报错 `SyntaxError: Unexpected token '﻿'` / 插件被跳过、加载不了**：`package.json` 开头混进了 **UTF-8 BOM**（旧包问题，≥1.0.1 已修）。手动救：把文件另存为「UTF-8 无 BOM」；或运行
   `node -e "const fs=require('fs'),f='package.json',b=fs.readFileSync(f);if(b[0]===0xEF&&b[1]===0xBB&&b[2]===0xBF)fs.writeFileSync(f,b.subarray(3))"`。
-- **网络慢/连不上 → 建议开代理**：插件走系统网络（不读插件内代理设置）。若出图或查账户经常「连接超时 / 连不上站点」，多半是到 `*.rinko.ai` 的直连不稳，**开启代理（如 Clash，建议“全局”或“TUN”模式）后再试**即可。插件每次请求分两段计时：**连接 20 秒**连不上就快速报错（不会干吊几百秒），连上后最多等 **180 秒**出图。
+- **网络慢/连不上 → 建议开代理**：插件走系统网络（不读插件内代理设置）。若出图或查账户经常「连接超时 / 连不上站点」，多半是到 `*.rinko.ai` 的直连不稳，**开启代理（如 Clash，建议“全局”或“TUN”模式）后再试**即可。插件每次请求分两段计时：**连接 20 秒**连不上就快速报错（不会干吊几百秒），连上后最多等 **120 秒**出图。
 - HTTP 502/504：网站上游抖了，稍后再试（设置页「测试连接」会如实报告）。
   实测 2026-11-20 晚：直连与 Clash 代理（127.0.0.1:7897）**同样 502**，且失败请求会自动退款
   （`wallet/ledger` 里是 `generation_debit` + `generation_refund` 成对出现），说明是站点自己的出图上游故障，与本地网络无关。
